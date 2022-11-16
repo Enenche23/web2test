@@ -1,0 +1,27 @@
+body{
+    width: 100%;
+    color: antiquewhite;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container{
+    width: 50%;
+    margin: 0 auto;
+    background: rgb(150, 150, 223);
+    color: whitesmoke;
+    text-align: center;
+    padding: 1em;
+}
+
+#notification {
+    background-color: blueviolet;
+}
+
+table{
+    margin: 0 auto;
+}
+
+tr, td{
+    border: 0.1em solid black;
+    padding: 1em;
+}
