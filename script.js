@@ -14,13 +14,11 @@ const interest = document.getElementById("interest");
 const withdraw = document.getElementById("withdraw");
 const showAmount = document.getElementById("allAmounts")
 
-const allAmounts = [];
 const user_details = [];
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const user_name = userName.value;
   const input_amount = parseInt(amount.value);
-  allAmounts.push(input_amount);
   const input_tier = parseInt(tier.value);
 
   const checker = validation(user_name, input_amount, input_tier);
@@ -119,7 +117,7 @@ const populateTable = () => {
 };
 
 const showAllAmount = () => {
-   let finalAmount =  allAmounts.reduce((a, b) => {
+   let finalAmount =  user_details.map((a) => a.amount).reduce((a, b) => {
         return(b+a)
     }, 0)
     showAmount.innerHTML = finalAmount;
