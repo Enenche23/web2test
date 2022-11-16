@@ -94,6 +94,7 @@ const validation = (username, amount, tier) => {
 };
 
 const populateTable = () => {
+    tableBody.innerHTML = null;
   let total_money = 0;
   user_details.forEach((user, index) => {
     const tr = document.createElement("tr");
@@ -101,18 +102,23 @@ const populateTable = () => {
     const name = document.createElement("td");
     const tier = document.createElement("td");
     const amount = document.createElement("td");
-    tr.setAttribute('onclick', "showConfirm(this)")
-    tr.setAttribute('id', user.id)
+    const withdrawButton = document.createElement("td")
+    const button = document.createElement('button')
+    button.innerHTML = "Widthdraw"
+    button.setAttribute('onclick', "showConfirm(this)")
+    button.setAttribute('id', user.id)
 
     total_money = total_money + user.amount;
     sn.innerHTML = `${index + 1}.`;
     name.innerHTML = user.username;
     tier.innerHTML = `Tier ${user.tier}`;
     amount.innerHTML = `N${user.amount.toLocaleString()}`;
+    withdrawButton.append(button)
     tr.append(sn);
     tr.append(name);
     tr.append(tier);
     tr.append(amount);
+    tr.append(withdrawButton)
     tableBody.append(tr);
   });
   ;
@@ -129,10 +135,10 @@ const showAllAmount = () => {
 function showConfirm(element){
     let status = confirm('Are you sure you want to withdraw')
     if(status){
-        element.remove()
         let userId = element.id
         console.log(userId)
         user_details.splice(userId, 1);
+        populateTable()
         showAllAmount();
     }
     
