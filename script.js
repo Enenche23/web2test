@@ -13,8 +13,8 @@ const totalMoney = document.getElementById("total_money");
 const interest = document.getElementById("interest");
 const withdraw = document.getElementById("withdraw");
 const showAmount = document.getElementById("allAmounts")
-
-const user_details = [];
+let id =0
+let user_details = [];
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const user_name = userName.value;
@@ -50,10 +50,12 @@ form.addEventListener("submit", (e) => {
       username: user_name,
       amount: input_amount,
       tier: input_tier,
+      id: id,
     };
     user_details.push(user_detail);
     tableBody.innerHTML = null;
     populateTable();
+    id++
   }
 });
 
@@ -99,7 +101,8 @@ const populateTable = () => {
     const name = document.createElement("td");
     const tier = document.createElement("td");
     const amount = document.createElement("td");
-    amount.setAttribute("class", "userAmount");
+    tr.setAttribute('onclick', "showConfirm(this)")
+    tr.setAttribute('id', user.id)
 
     total_money = total_money + user.amount;
     sn.innerHTML = `${index + 1}.`;
@@ -112,7 +115,7 @@ const populateTable = () => {
     tr.append(amount);
     tableBody.append(tr);
   });
-  totalMoney.innerHTML = `Total amount of all riders N${total_money.toLocaleString()}`;
+  ;
   showAllAmount(); 
 };
 
@@ -120,5 +123,17 @@ const showAllAmount = () => {
    let finalAmount =  user_details.map((a) => a.amount).reduce((a, b) => {
         return(b+a)
     }, 0)
-    showAmount.innerHTML = finalAmount;
+    showAmount.innerHTML = `Total amount of all riders N${finalAmount.toLocaleString()}`
+}
+
+function showConfirm(element){
+    let status = confirm('Are you sure you want to withdraw')
+    if(status){
+        element.remove()
+        let userId = element.id
+        console.log(userId)
+        user_details.splice(userId, 1);
+        showAllAmount();
+    }
+    
 }
